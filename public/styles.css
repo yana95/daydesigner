@@ -1,0 +1,313 @@
+@font-face {
+    font-family: IstokWeb-Regular; /* Имя шрифта */
+    src: url(./fonts/IstokWeb-Regular.ttf); /* Путь к файлу со шрифтом */
+   }
+
+* {
+    box-sizing: border-box;
+}
+html, body, #app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#root, .Application, .Tasks, .Menu{
+    height: 100%;
+}
+.Tasks{
+    background: linear-gradient(to top, #E3E0A4, #859947);
+}
+.Menu{
+    float: left;
+    width: 300px;
+    background: white;
+}
+.Lists li{
+    display: flex;
+    align-items: baseline;
+    padding:  10px;
+}
+.Lists li:hover{
+    cursor: pointer;
+}
+.Lists li i{
+    margin-right: 10px;
+    font-size: 22px;
+}
+i.inbox{
+    color: #8F6FAF  ;
+    transform: rotate(45deg);
+}
+i.star{
+    color: #C17483;
+}
+i.user-list{
+    color: #75863F;
+}
+.Lists li p{
+    color: #616161;
+    margin: 0;
+}
+.Lists .active{
+    background-color: rgba(207, 216, 220, 0.53);
+}
+.logo{
+    padding: 5px;
+    background-color: #a7be5e;
+}
+.logo img{
+    width: 240px;
+}
+.header{
+    height: 70px;
+    background-color: rgb(117, 134, 63);
+}
+.add-list{
+    position: absolute;
+    bottom: 0;
+    width: inherit;
+    border: none;
+    background: rgba(152, 128, 175, 0.64);
+    padding: 10px;
+    color: #27103E;
+    font-size: 16px;
+}
+.add-list::-webkit-input-placeholder {color:#27103E;}
+.add-task{
+    float: right;
+    margin-right: 20px;
+    margin-top: 30px;
+    background: none;
+    border: none;
+    color: #c3dc70;
+    font-size: 18px;
+    font-family: "IstokWeb-Regular";
+}
+.add-task:hover{
+    cursor: pointer;
+    color: cornsilk;
+}
+.add-task:focus{
+    outline: none;
+}
+body {
+    background: #eee;
+    font-family: "IstokWeb-Regular";
+}
+h1 {
+    font-weight: 200;
+    color: #3b414c;
+    font-size: 20px;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.app {
+    white-space: nowrap;
+    height: 100%;
+}
+.list {
+    position: relative;
+    vertical-align: top;
+    padding: 0 20px;
+    overflow: auto;
+    margin-top: 20px;
+}
+.list:not(:last-child):after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 99%;
+    background: linear-gradient(to bottom, #eee 0%, #ccc 50%, #eee 100%) fixed;
+}
+.card {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    width: 100%;
+    padding: 10px 10px 10px 15px;
+    margin: 0 0 10px 0;
+    overflow: auto;
+    border: 1px solid #e5e5df;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+.card__title {
+    display: inline-block;
+    font-weight: bold;
+    border-bottom: solid 5px transparent;
+}
+.card__title--is-open:before {
+    content: '';
+}
+.card:hover .card__actions{
+    display: block;
+}
+.card .card__actions{
+    float: right;
+    display: none;
+}
+.card .card__actions button{
+    background: unset;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: rgba(59, 65, 76, 0.5);
+}
+.card .card__actions button:hover{
+    color: rgb(59, 65, 76);
+}
+.shadow{
+    min-height: 100%;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    background: rgba(59, 65, 76, 0.39);
+    width: 100%;
+    z-index: 10;
+}
+.shadow .NoteEditor{
+    height: 100%;
+    position: absolute;
+    right: 0px;
+    top: 0;
+    width: 400px;
+    background: rgb(255, 255, 255);
+    box-shadow: #4d4f4d 0px 0px 20px;
+    z-index: 10;
+    padding: 20px;
+}
+.NoteEditor .wrapper{
+    padding-bottom: 60px;
+    height: 90%;
+    overflow: auto;
+}
+.NoteEditor h2{
+    margin: 0 0 20px 0;
+    font-family: 'IstokWeb-Regular';
+}
+.NoteEditor label, .NoteEditor span {
+    display: block;
+    font-family: 'IstokWeb-Regular';
+}
+.NoteEditor span{
+    font-size: 18px;
+}
+.NoteEditor__status{
+    display: flex;
+    justify-content: space-around; 
+        margin: 10px 0 20px 0;
+}
+.NoteEditor__status div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.NoteEditor input[type='text'],textarea{
+    padding: 5px;
+    width: 100%;
+    font-family: 'IstokWeb-Regular';
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 20px;
+}
+.NoteEditor input[type='radio']{
+    display: none;
+}
+.NoteEditor input[type='radio'] + label{
+    border: 1px solid grey;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.NoteEditor .subtasks li p{
+    display: inline;
+    vertical-align: middle;
+}
+.NoteEditor .subtasks li button{
+    background: none;
+    border: none;
+    width: 20px;
+    height: 20px;
+}
+.NoteEditor .subtasks li button:hover{
+    cursor: pointer;
+}
+.NoteEditor .subtasks li button:focus{
+    outline: none;
+}
+.NoteEditor input[type='radio'] + label span{
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    position: relative;
+    top: -8px;
+    left: 3px;
+    vertical-align: middle;
+    cursor: pointer;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.NoteEditor input[type="radio"]:checked + label span{
+     background-color: #159e49;
+}
+.NoteEditor input[name="starred"]{
+    display: none;
+}
+.NoteEditor input[name="starred"] + label{
+    display: flex;
+}
+.NoteEditor input[name="starred"] + label .fa-star{
+    color: rgba(128, 128, 128, 0.63);
+    margin-right: 10px;
+}
+.NoteEditor input[name="starred"]:checked + label .fa-star{
+    color: #C4354C;
+}
+.NoteEditor input[name="starred"] + label a{
+    text-decoration: underline;
+}
+.NoteEditor input[name="starred"] + label a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+.NoteEditor__buttons{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+.NoteEditor__buttons button {
+    width: 70px;
+    padding: 5px;
+    border: none;
+    color: white;
+    font-family: 'IstokWeb-Regular';
+    font-size: 16px;
+    line-height: 18px;
+}
+.NoteEditor__buttons button:not([disabled]):hover{
+    cursor: pointer;
+}
+.NoteEditor__button.cancel {
+    background-color: #2f2d2d;
+    margin-right: 10px;
+}
+.NoteEditor__button.submit {
+    background-color: #53b130;
+}
+.NoteEditor__button.submit:disabled{
+    background-color: rgba(0, 128, 0, 0.6);
+}
+.NoteEditor .add-subtask{
+    border: 1px grey dashed ;
+}
+.NoteEditor .add-subtask:focus{
+    outline: none;
+}
+
+
