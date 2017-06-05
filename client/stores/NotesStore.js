@@ -25,7 +25,8 @@ function formatNote(note) {
 function formatList(list) {
     return {
         id: list._id,
-        title: list.title
+        title: list.title,
+        edit: list.edit
     };
 }
 

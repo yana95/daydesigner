@@ -2,6 +2,7 @@ import React from 'react';
 import CheckList from './CheckList';
 
 class NoteEditor extends React.Component{
+
 	constructor(props,context) {
         super(props, context);
         if(props.data){
@@ -59,13 +60,7 @@ class NoteEditor extends React.Component{
             newNote.id = this.state.id;
         }
         this.props.onSubmit(newNote);
-        this.setState({
-        	title: '',
-            text: '',
-            tasks: [],
-            status: '',
-            starred: false
-        });
+        
     }
     handleAddSubtask(e){
         if(e.key == "Enter"){
@@ -137,48 +132,13 @@ class NoteEditor extends React.Component{
                             className = "add-subtask"
                         />
                         <ul className="subtasks">{tasks}</ul>
-                        <label>Select task status </label>
-                        <div className="NoteEditor__status">
-                            <div>
-                                <input 
-                                    type="radio"
-                                    id="todo"
-                                    name="status"
-                                    onClick={this.handleStatusChange}
-                                    defaultChecked={todo}
-                                />
-                                <label htmlFor="todo"><span></span></label>
-                                <span>To do</span>
-                            </div>
-                            <div>
-                                <input 
-                                    type="radio"
-                                    id="progress"
-                                    name="status"
-                                    onClick={this.handleStatusChange}
-                                    defaultChecked={progress}
-                                />
-                                <label  htmlFor="progress"><span></span></label>
-                                <span>In progress</span>
-                            </div>
-                            <div>
-                                <input 
-                                    type="radio"
-                                    id="done"
-                                    name="status"
-                                    onClick={this.handleStatusChange}
-                                    defaultChecked={done}
-                                />
-                                <label  htmlFor="done"><span></span></label>
-                                <span>Done</span>
-                            </div>
-                        </div>
                         <div>
                             <input 
                                 type="checkbox"
                                 name="starred"
                                 id="starred"
                                 onClick={this.handleStarred}
+                                defaultChecked={this.state.starred}
                             />
                             <label htmlFor="starred"><i className="fa fa-star fa-2x" aria-hidden="true"></i><a>Add to Starred</a></label>
                             

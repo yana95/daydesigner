@@ -15,6 +15,17 @@ const ListsActions = {
         );
     },
     
+    deleteList(listData){
+        api.deleteList(listData.id)
+        .then(() =>{
+                this.loadLists();
+            }
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+
     loadLists() {
         AppDispatcher.dispatch({
             type: Constants.LOAD_LIST_REQUEST

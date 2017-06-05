@@ -24,6 +24,7 @@ class Lists extends React.Component{
             e.target.value = "";
         }  
 	}
+	
 
 	render(){
 		var lists = this.props.lists.map((list) => {
@@ -34,10 +35,18 @@ class Lists extends React.Component{
 				default : icon=<i className="fa fa-list-alt user-list" aria-hidden="true"></i>;break;
 			}
 			var active = this.addActiveClass(list);
+			var editAction;
+			if(list.edit){
+				editAction = <div className="list__actions">
+                    <button ><i className="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button onClick={this.props.deleteList.bind(null, list)}><i className="fa fa-trash" aria-hidden="true"></i></button>
+                </div>
+			}
 			return(
-				<li key={list.id} onClick={this.props.selectList.bind(null, list)} className={active} >
+				<li key={list.id}  className={active} >
 					{icon}
-					<p>{list.title}</p>
+					<p onClick={this.props.selectList.bind(null, list)}>{list.title}</p>
+					{editAction}
 				</li>
 			);
 		});

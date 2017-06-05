@@ -6,25 +6,27 @@
 * {
     box-sizing: border-box;
 }
-html, body, #app {
+html, body, #app,#root {
     height: 100%;
     margin: 0;
     padding: 0;
 }
-#root, .Application, .Tasks, .Menu{
-    height: 100%;
+.Application{
+    display: flex;
+    min-height: 100%;
 }
 .Tasks{
     background: linear-gradient(to top, #E3E0A4, #859947);
+    width: 80%;
 }
 .Menu{
-    float: left;
-    width: 300px;
+    width: 20%;
     background: white;
 }
 .Lists li{
+    position: relative;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     padding:  10px;
 }
 .Lists li:hover{
@@ -57,6 +59,7 @@ i.user-list{
 }
 .logo img{
     width: 240px;
+    vertical-align: sub;
 }
 .header{
     height: 70px;
@@ -113,6 +116,8 @@ ul {
     vertical-align: top;
     padding: 0 20px;
     overflow: auto;
+}
+.list.todo{
     margin-top: 20px;
 }
 .list:not(:last-child):after {
@@ -130,35 +135,42 @@ ul {
     background: #fff;
     width: 100%;
     padding: 10px 10px 10px 15px;
-    margin: 0 0 10px 0;
     overflow: auto;
     border: 1px solid #e5e5df;
     border-radius: 3px;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
+.card:not(:last-child){
+    margin: 0 0 10px 0;
+}
 .card__title {
     display: inline-block;
-    font-weight: bold;
-    border-bottom: solid 5px transparent;
+    margin: 0;
+    font-size: 20px;
+    color: #535352;
 }
 .card__title--is-open:before {
     content: '';
 }
-.card:hover .card__actions{
+.card:hover .card__actions, .Lists li:hover .list__actions{
     display: block;
 }
-.card .card__actions{
+.card .card__actions, .list__actions{
     float: right;
     display: none;
 }
-.card .card__actions button{
+.list__actions{
+    right: 0px;
+    position: absolute;
+}
+.card .card__actions button, .list__actions button {
     background: unset;
     border: none;
     font-size: 18px;
     cursor: pointer;
     color: rgba(59, 65, 76, 0.5);
 }
-.card .card__actions button:hover{
+.card .card__actions button:hover, .list__actions button:hover{
     color: rgb(59, 65, 76);
 }
 .shadow{
@@ -246,7 +258,7 @@ ul {
     width: 7px;
     height: 7px;
     position: relative;
-    top: -8px;
+    top: -5px;
     left: 3px;
     vertical-align: middle;
     cursor: pointer;
@@ -309,5 +321,53 @@ ul {
 .NoteEditor .add-subtask:focus{
     outline: none;
 }
-
-
+.header h2{
+    color: white;
+    display: inline-block;
+    position: relative;
+    left: 20px;
+    margin: 0;
+    top: 10px;
+    font-weight: 300;
+    font-size: 40px;
+}
+.description{
+    margin: 5px 0;
+}
+.item-starred{
+    color: #F44336;
+    margin-left: 5px;
+}
+.main-check{
+    margin: 0 10px 0 0;
+}
+.hide{
+    display: none;
+}
+.starred-card{
+    width: 20px;
+    float: right;
+    margin-top: -10px;
+    margin-left:10px;
+}
+.list.done{
+    opacity: 0.7;
+    display: none;
+}
+.show-resolve{
+    color: #697523;
+    text-align: center;
+    margin: 10px 0;
+}
+.show-resolve::before{
+    content: "";
+    width: 200px;
+    height: 1px;
+    background: #697523;
+}
+.card__details{
+    display: none;
+}
+.Lists li .list__actions i{
+    font-size: 18px;
+}

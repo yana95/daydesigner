@@ -7,13 +7,12 @@ import Lists from './Lists';
 import NotesStore from './stores/NotesStore';
 import NotesActions from './actions/NotesActions';
 import ListsActions from './actions/ListsActions';
-import {Router, Route, browserHistory, Link} from 'react-router';
 
 function getStateFromFlux() {
     return {
         isLoading: NotesStore.isLoading(),
-        notes: NotesStore.getNotes(),
         lists: NotesStore.getLists(),
+        notes: NotesStore.getNotes(),
         showAddBoard: false,
         showEditBoard: false
     };
@@ -31,10 +30,19 @@ class App extends React.Component {
 
 
     shouldComponentUpdate(nextProps, nextState){
-        if(nextState.lists.length>0 && nextState.notes.length >0  ){
+        if(nextState.lists.length>0   ){
             if(!nextState.selectList ){
                 nextState.selectList = nextState.lists[0].id;
             } 
+            var isSelectListDelete = true;
+            for(var i=0; i < nextState.lists.length; i++){
+                if(nextState.selectList == nextState.lists[i].id){
+                    isSelectListDelete = false;
+                }
+            }
+            if(isSelectListDelete){
+                nextState.selectList = nextState.lists[0].id;
+            }
             return true;
         }
         return false;
@@ -64,10 +72,16 @@ class App extends React.Component {
     handleNoteCheck(note){
         NotesActions.checkNote(note.id);
     }
+
+    handleSubtaskCheck(subtaskId){
+        NotesActions.checkSubtask(this.props.id, subtaskId);
+    }
+
     handleNoteEdit(note){
         NotesActions.editNote(note.id, note);
         this.setState({editTask: null});
     }
+
     handleShowBoard(action,note){
         if(action=="add"){
             this.setState({showAddBoard: true});
@@ -107,25 +121,23 @@ class App extends React.Component {
         var listId = this.state.selectList;
         var notes;
         var list = this.findList(listId);
-        if(list.title === "Starred"){
-            notes = this.state.notes.filter((note) => {
-                if(note.starred){
-                    return true;
-                }
-                return false;
-            });
-        }
-        else if(list.title === "Inbox"){
-
-            notes = this.state.notes;
-        }
-        else{
-            notes = this.state.notes.filter((note) => {
-                if(note.listId === listId){
-                    return true;
-                }
-                return false;
-            });
+        switch(list.title){
+            case "Starred": notes = this.state.notes.filter((note) => {
+                            if(note.starred){
+                                return true;
+                            }
+                             return false;
+                        }); 
+                        break;
+            case "Inbox": notes = this.state.notes;
+                        break;
+            default: notes = this.state.notes.filter((note) => {
+                        if(note.listId === listId){
+                            return true;
+                        }
+                        return false;
+                    });
+                    break;
         }
         return notes;
     }
@@ -134,13 +146,24 @@ class App extends React.Component {
         ListsActions.createList(listData);
     }
 
+    handleDeleteList(listData){
+        ListsActions.deleteList(listData);
+        NotesActions.deleteNotes(listData);
+    }
+
+
 	render(){
         var editBoard;
         if(this.state.showAddBoard){
-            editBoard = <NoteEditor  selectList={this.state.selectList} onSubmit={this.handleNoteAdd} onCancel={this.handleHideBoard.bind(this,"add")}/>
+            editBoard = <NoteEditor  selectList={this.state.selectList}
+                                    onSubmit={this.handleNoteAdd}
+                                    onCancel={this.handleHideBoard.bind(this,"add")}/>
         }
         if(this.state.showEditBoard && this.state.editTask){
-            editBoard = <NoteEditor selectList={this.state.selectList} data={this.state.editTask} onSubmit={this.handleNoteEdit} onCancel={this.handleHideBoard.bind(this,"edit")}/>
+            editBoard = <NoteEditor selectList={this.state.selectList}
+                                     data={this.state.editTask}
+                                     onSubmit={this.handleNoteEdit}
+                                     onCancel={this.handleHideBoard.bind(this,"edit")}/>
         }
         var notes;
         var currentListTitle;
@@ -151,19 +174,27 @@ class App extends React.Component {
         }
     	return (
             <div className="Application">
-                <Lists lists={this.state.lists} selectList={this.handleSelectList} active={this.state.selectList} addList={this.handleAddList}/>
+                <Lists lists={this.state.lists}
+                        selectList={this.handleSelectList}
+                        active={this.state.selectList}
+                        deleteList={this.handleDeleteList}
+                        editList={this.handleEditList}
+                        addList={this.handleAddList}/>
                 <div className="Tasks">
-                    {editBoard}
                     <div className="header">
                         <h2>{title}</h2>
-                        <button className="add-task" onClick={this.handleShowBoard.bind(this,"add")}>+ Add task</button>
+                        <button className="add-task" onClick={this.handleShowBoard.bind(this,"add")}>
+                            + Add task
+                        </button>
                     </div>
                     <Board  notes={notes}
                             onCheckNote = {this.handleNoteCheck}
                             onDeleteNote={this.handleNoteDelete} 
                             showBoard = {this.handleShowBoard.bind(this)}
+                            onSubtaskCheck = {this.handleSubtaskCheck}
                     />
                 </div>
+                {editBoard}
             </div>
     	);
 	}

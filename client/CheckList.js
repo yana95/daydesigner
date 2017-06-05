@@ -5,7 +5,7 @@ class CheckList extends Component {
             var status = (task.status == "done")? true : false;
             return (
                 <li className="checklist__task" key={task.id}>
-                    <input type="checkbox" onChange={this.props.onCheck.bind(null, task)} defaultChecked={status} />
+                    <input type="checkbox" onChange={this.props.onCheck.bind(null, task.id)} defaultChecked={status} />
                     <span>{task.title}</span>
                 </li> );
         });

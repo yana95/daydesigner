@@ -33,20 +33,54 @@ module.exports = {
     },
 
     checkNote: function(id){
-        console.log(typeof id);
         return Note.model.findById(id, function (err, note) {
-          if(note.status != "done"){
-            note.status = 'done';
+            if(note.tasks.length == 0){
+                
+                if(note.status == "todo"){
+                    note.status = 'done';
+                }
+                else{
+                    note.status = 'todo';
+                }
+            }
+          
+          return note.save();
+        });
+    },
+
+    checkSubtask: function(noteId, subtaskId){
+        return Note.model.findById(noteId, function (err, note) {
+            var done = true;
+          for(var i=0; i<note.tasks.length;i++){
+            if(note.tasks[i].id == subtaskId){
+                if(note.tasks[i].status == "todo"){
+                    note.tasks[i].status = "done";
+                }
+                else{
+                    note.tasks[i].status = "todo";
+                }
+            }
+          }
+          for(var i=0; i<note.tasks.length;i++){
+            if(note.tasks[i].status == "todo"){
+                done = false;
+                break;
+            }
+          }
+          if(done){
+            note.status = "done";
           }
           else{
-            note.status = 'todo';
+            note.status = "todo";
           }
+          note.markModified('tasks');
           return note.save();
         });
     },
 
     editNote: function(id, data){
         return Note.model.findById(id, function (err, note) {
+            console.log(note);
             note.title = data.title;
             note.text = data.text;
             note.tasks = data.tasks;
@@ -71,5 +105,14 @@ module.exports = {
         
         return con.collection('lists').insert(list);
     },
+
+    deleteList: function(id) {
+        return List.model.findById(id).remove();
+    },
+
+    deleteNotes: function(id) {
+        return Note.model.find({listId:id}).remove();
+    },
+
 }
 

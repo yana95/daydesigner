@@ -25,6 +25,26 @@ const NoteActions = {
         );
     },
 
+    deleteNotes(listData){
+        api.deleteNotes(listData.id)
+        .then(() =>{
+                this.loadNotes();
+            }
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+    checkSubtask(noteId, subtaskId){
+        api.checkSubtask(noteId, subtaskId)
+        .then(() =>
+            this.loadNotes()
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+
     editNote(noteId,data){
         api.editNote(noteId,data)
         .then(() =>

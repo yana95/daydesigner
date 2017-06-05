@@ -25,6 +25,10 @@ app.put('/notes/check/:id', (req, res) =>{
   Actions.checkNote(req.params.id).then(data => {res.send(data);});
 });
 
+app.put('/notes/subtask/check/:id', (req, res) =>{
+  Actions.checkSubtask(req.body.noteId, req.body.subtaskId).then(data => {res.send(data);});
+});
+
 app.put('/notes/:id', (req, res) =>{
   Actions.editNote(req.body.id, req.body.data).then(data => {res.send(data);});
 });
@@ -33,12 +37,20 @@ app.delete('/notes/:id', (req, res) => {
     Actions.deleteNote(req.params.id).then(data => res.send(data));
 });
 
+app.delete('/list/notes/:listId', (req, res) => {
+    Actions.deleteNotes(req.params.listId).then(data => res.send(data));
+});
+
 app.get('/lists', (req, res) => {
     Actions.listLists().then(data => res.send(data));
 });
 
 app.post('/lists', (req, res) => {
      Actions.createList(req.body).then(data => {res.send(data);});
+});
+
+app.delete('/lists/:id', (req, res) => {
+    Actions.deleteList(req.params.id).then(data => res.send(data));
 });
 
 const server = app.listen(port, function() {
