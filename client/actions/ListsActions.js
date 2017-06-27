@@ -14,6 +14,17 @@ const ListsActions = {
             console.error(err)
         );
     },
+
+    editList(list){
+        api.editList(list)
+        .then((resp) =>{
+                this.loadLists();
+            }
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
     
     deleteList(listData){
         api.deleteList(listData.id)

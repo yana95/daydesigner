@@ -8,7 +8,8 @@ const NoteSchema = new Schema({
     status      : { type: String, required: true },
     tasks      : { type: []},
     starred		: {type: Boolean},
-    listId		:{type: String}
+    listId		:{type: String},
+    date: {type: Date}
 });
 
 module.exports.model =  mongoose.model('Note', NoteSchema);

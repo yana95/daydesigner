@@ -3,9 +3,6 @@ import CheckList from './CheckList';
 
 class Card extends Component {
 
-    handleCheckSubtask(e){
-        //alert(e.target);
-    }
 
     check(){
         if(this.props.status == "done"){
@@ -15,7 +12,7 @@ class Card extends Component {
     }
 
     shouldComponentUpdate (nextProps) {
-	    return nextProps !== this.props;
+	    return nextProps != this.props;
 	}
 
     showDetails(e){
@@ -29,10 +26,10 @@ class Card extends Component {
             starred = <img className="starred-card" src="./img/starred.png" />
         }
         var todo = this.check();
-
         return (
             <div className="card" >
-                <input className="main-check" type="checkbox" onChange = {this.props.onCheckNote} checked={todo}/>
+                <input id={this.props.id} className="main-check" type="checkbox" onChange = {this.props.onCheckNote} checked={todo}/>
+                <label htmlFor={this.props.id}><i className="fa fa-check" aria-hidden="true"></i></label>
                 <div className="card__title" onClick={this.showDetails} >{this.props.title}</div>
                 {starred}
                 <div className="card__actions">

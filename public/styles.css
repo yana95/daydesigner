@@ -16,12 +16,12 @@ html, body, #app,#root {
     min-height: 100%;
 }
 .Tasks{
-    background: linear-gradient(to top, #E3E0A4, #859947);
+    background: #f5f2f5;
     width: 80%;
 }
 .Menu{
     width: 20%;
-    background: white;
+    background: #53374e;
 }
 .Lists li{
     position: relative;
@@ -32,63 +32,75 @@ html, body, #app,#root {
 .Lists li:hover{
     cursor: pointer;
 }
-.Lists li i{
+.Lists li>i{
+    width: 25px;
     margin-right: 10px;
     font-size: 22px;
+    color: #b3a5b1;
 }
 i.inbox{
-    color: #8F6FAF  ;
     transform: rotate(45deg);
 }
-i.star{
-    color: #C17483;
-}
-i.user-list{
-    color: #75863F;
-}
 .Lists li p{
-    color: #616161;
+    color: #958293;
     margin: 0;
 }
+.Lists .active p, .Lists .active i{
+    color:white;
+}
 .Lists .active{
-    background-color: rgba(207, 216, 220, 0.53);
+    background: #4c9689;
 }
 .logo{
     padding: 5px;
-    background-color: #a7be5e;
-}
-.logo img{
-    width: 240px;
-    vertical-align: sub;
+    background-color: #432c3e;
 }
 .header{
-    height: 70px;
-    background-color: rgb(117, 134, 63);
+    background: white;
+    box-shadow: 0 4px 5px -2px #bfbfbf;
+    padding: 5px;
 }
 .add-list{
     position: absolute;
     bottom: 0;
     width: inherit;
     border: none;
-    background: rgba(152, 128, 175, 0.64);
-    padding: 10px;
+    background: #261c25;
+    padding: 10px 10px 10px 35px;
     color: #27103E;
     font-size: 16px;
 }
-.add-list::-webkit-input-placeholder {color:#27103E;}
+.add-list input{
+    font-size: 16px;
+    background: #261c25;
+    COLOR: WHITE;
+    border: none;
+    width: 100%;
+    border-bottom: 1px white solid;
+}
+.add-list input:focus{
+    outline: none;
+}
+.add-list i{
+    position: absolute;
+    left: 5px;
+    color: white;
+    top: 10px;
+    font-size: 25px;
+}
+.add-list input::-webkit-input-placeholder {color:white;}
 .add-task{
     float: right;
-    margin-right: 20px;
-    margin-top: 30px;
     background: none;
+    line-height: 40px;
     border: none;
-    color: #c3dc70;
+    color: #69696b;
     font-size: 18px;
     font-family: "IstokWeb-Regular";
 }
 .add-task:hover{
     cursor: pointer;
-    color: cornsilk;
+    color: #e01563;
 }
 .add-task:focus{
     outline: none;
@@ -99,8 +111,11 @@ body {
 }
 h1 {
     font-weight: 200;
-    color: #3b414c;
+    color: white;
     font-size: 20px;
+    margin: 0;
+    font-size: 28px;
+    letter-spacing: 1px;
 }
 ul {
     list-style-type: none;
@@ -134,7 +149,7 @@ ul {
     z-index: 1;
     background: #fff;
     width: 100%;
-    padding: 10px 10px 10px 15px;
+    padding: 10px 10px 10px 40px;
     overflow: auto;
     border: 1px solid #e5e5df;
     border-radius: 3px;
@@ -148,6 +163,7 @@ ul {
     margin: 0;
     font-size: 20px;
     color: #535352;
+    position: relative;
 }
 .card__title--is-open:before {
     content: '';
@@ -160,7 +176,7 @@ ul {
     display: none;
 }
 .list__actions{
-    right: 0px;
+    right: 5px;
     position: absolute;
 }
 .card .card__actions button, .list__actions button {
@@ -191,7 +207,7 @@ ul {
     background: rgb(255, 255, 255);
     box-shadow: #4d4f4d 0px 0px 20px;
     z-index: 10;
-    padding: 20px;
+    padding: 10px 20px;
 }
 .NoteEditor .wrapper{
     padding-bottom: 60px;
@@ -201,6 +217,7 @@ ul {
 .NoteEditor h2{
     margin: 0 0 20px 0;
     font-family: 'IstokWeb-Regular';
+    color: #53374e;
 }
 .NoteEditor label, .NoteEditor span {
     display: block;
@@ -222,10 +239,15 @@ ul {
 .NoteEditor input[type='text'],textarea{
     padding: 5px;
     width: 100%;
+    border-radius: 3px;
     font-family: 'IstokWeb-Regular';
     font-size: 16px;
     line-height: 18px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    border: 1px #d9d6d7 solid;
+}
+.NoteEditor input[type='text']:focus,textarea:focus{
+    outline: none;
 }
 .NoteEditor input[type='radio']{
     display: none;
@@ -275,8 +297,9 @@ ul {
     display: flex;
 }
 .NoteEditor input[name="starred"] + label .fa-star{
-    color: rgba(128, 128, 128, 0.63);
+    color: rgba(128, 128, 128, 0.39);
     margin-right: 10px;
+    font-size: 22px;
 }
 .NoteEditor input[name="starred"]:checked + label .fa-star{
     color: #C4354C;
@@ -322,14 +345,12 @@ ul {
     outline: none;
 }
 .header h2{
-    color: white;
+    color: #53374e;
     display: inline-block;
     position: relative;
-    left: 20px;
     margin: 0;
-    top: 10px;
-    font-weight: 300;
-    font-size: 40px;
+    font-weight: bold;
+    font-size: 28px;
 }
 .description{
     margin: 5px 0;
@@ -355,7 +376,7 @@ ul {
     display: none;
 }
 .show-resolve{
-    color: #697523;
+    color: #40b892;
     text-align: center;
     margin: 10px 0;
 }
@@ -370,4 +391,102 @@ ul {
 }
 .Lists li .list__actions i{
     font-size: 18px;
+}
+.input-calendar-field{
+    width:50%;
+}
+.editList{
+    border: none;
+    border-bottom: 1px grey solid;
+    display: none;
+}
+.main-check{
+    display: none;
+}
+.main-check + label{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    border: 1px grey solid;
+    position: absolute;
+    top: 15px;
+    left: 10px;
+}
+.main-check + label i{
+    display: none;
+}
+.main-check:checked + label i{
+    color: #28ca42;
+    position: absolute;
+    display: block;
+    top: -2px;
+    font-size: 20px;
+}
+label[for="starred"]{
+    margin-top: 10px;
+}
+.subtasks{
+    padding-left: 20px;
+}
+.subtasks button{
+    color:#eb4c5c;
+}
+.NoteEditor span.today-btn{
+    display: none;
+}
+.navigation-wrapper, .days-title{
+    display: flex;
+    justify-content: space-around;
+}
+.navigation-wrapper{
+    color: #f3f3f3;
+    background: #53374e;
+}
+.days{
+    flex-wrap: wrap;
+    flex-direction: row;
+    display: flex;
+    margin: auto;
+}
+.day{
+    width: 30px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+}
+.input-calendar-wrapper {
+    width: 210px;
+    border-radius: 3px;
+    border: 1px rgba(102, 82, 105, 0.29) solid;
+    box-sizing: content-box;
+    box-shadow: 0 0 6px rgba(97, 97, 97, 0.46);
+    background: white;
+}
+.days-title{
+    background: rgba(125, 77, 116, 0.23);
+}
+.current{
+    background: rgba(125, 77, 116, 0.23);
+}
+.NoteEditor input[type='text'].input-calendar-field{
+    width: 90px;
+    margin: 0 0 0 95px;
+    border: none;
+}
+.input-calendar{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+.calendar-icon{
+    float: right;
+}
+.day.prev, .day.next{
+    color: rgba(128, 128, 128, 0.8);
+}
+.navigation-wrapper .icon:hover, .day:hover{
+    cursor: pointer;
+    color: #e01563;
 }

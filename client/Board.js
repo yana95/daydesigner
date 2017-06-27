@@ -15,6 +15,12 @@ class Board extends Component {
                 }    
             }
         }
+        nonStar.sort(function(a,b){
+            return Date.parse(a.date)-Date.parse(b.date);
+        });
+        star.sort(function(a,b){
+            return Date.parse(a.date)-Date.parse(b.date);
+        });
         return star.concat(nonStar);
     }
 

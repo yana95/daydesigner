@@ -1,5 +1,6 @@
 import React from 'react';
 import CheckList from './CheckList';
+import Calendar from 'react-input-calendar';
 
 class NoteEditor extends React.Component{
 
@@ -13,7 +14,8 @@ class NoteEditor extends React.Component{
             status: props.data.status,
             starred: props.data.starred,
             id: props.data.id,
-            listId: props.selectList
+            listId: props.selectList,
+            date: props.data.date
             }
         }
         else{
@@ -23,7 +25,8 @@ class NoteEditor extends React.Component{
             tasks: [],
             status: 'todo',
             starred: false,
-            listId : props.selectList
+            listId : props.selectList,
+            date: ''
             }
         }
         this.handleTextChange = this.handleTextChange.bind(this);
@@ -31,11 +34,16 @@ class NoteEditor extends React.Component{
         this.handleNoteSubmit = this.handleNoteSubmit.bind(this);
         this.handleAddSubtask = this.handleAddSubtask.bind(this);
         this.handleStatusChange = this.handleStatusChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
         this.handleStarred = this.handleStarred.bind(this);
     }
 
     handleTextChange(event) {
         this.setState({ text: event.target.value });
+    }
+
+    handleDateChange(props){
+        this.setState({ date: props });
     }
 
     handleTitleChange(event) {
@@ -54,7 +62,8 @@ class NoteEditor extends React.Component{
             tasks: this.state.tasks,
             status: this.state.status,
             starred: this.state.starred, 
-            listId: this.state.listId
+            listId: this.state.listId,
+            date: this.state.date
         };
         if(this.state.id){
             newNote.id = this.state.id;
@@ -91,6 +100,7 @@ class NoteEditor extends React.Component{
     }
 
     render() {
+        console.log(this.state);
         var tasks = this.state.tasks;
         tasks = tasks.map((task)=>{
             return (
@@ -103,12 +113,11 @@ class NoteEditor extends React.Component{
         var todo = (this.state.status == "todo")? true : false;
         var progress = (this.state.status == "progress")? true : false;
         var done = (this.state.status == "done")? true : false;
-
         return (
             <div className="shadow">
                 <div className="NoteEditor">
                     <div className="wrapper">
-                    	<h2>Add new task</h2>
+                    	<h2>Add new task</h2>                        
                         <label>Title</label>
                     	<input
                             type='text'
@@ -117,6 +126,7 @@ class NoteEditor extends React.Component{
                             value={this.state.title}
                             onChange={this.handleTitleChange}
                         />
+                        <Calendar format='DD-MM-YYYY' date={this.state.date} onChange={this.handleDateChange}/>
                         <label>Description</label>
                         <textarea
                             placeholder='Enter note text'
@@ -127,6 +137,7 @@ class NoteEditor extends React.Component{
                         />
                         <label>Add subtask</label>
                         <input
+                            placeholder='Enter title of subtask'
                             type="text"
                             onKeyPress = {this.handleAddSubtask}
                             className = "add-subtask"

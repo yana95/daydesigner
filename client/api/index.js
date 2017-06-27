@@ -37,6 +37,9 @@ export default {
     createList(data) {
         return axios.post(`http://localhost:8000/lists`, data);
     },
+    editList(list){
+        return axios.put(`http://localhost:8000/lists/${list.id}`,list);
+    },
     deleteList(id) {
         return axios.delete(`http://localhost:8000/lists/${id}`);
     }

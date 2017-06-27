@@ -18,7 +18,8 @@ function formatNote(note) {
         status: note.status,
         tasks: note.tasks,
         starred: note.starred,
-        listId: note.listId
+        listId: note.listId,
+        date: note.date
     };
 }
 

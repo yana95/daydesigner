@@ -33,6 +33,11 @@ app.put('/notes/:id', (req, res) =>{
   Actions.editNote(req.body.id, req.body.data).then(data => {res.send(data);});
 });
 
+app.put('/lists/:id', (req, res) =>{
+  console.log(req.body);
+  Actions.editList(req.body.id, req.body.title).then(data => {res.send(data);});
+});
+
 app.delete('/notes/:id', (req, res) => {
     Actions.deleteNote(req.params.id).then(data => res.send(data));
 });

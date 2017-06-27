@@ -117,6 +117,7 @@ class App extends React.Component {
         });
         return list;
     }
+
     notesFromList(){
         var listId = this.state.selectList;
         var notes;
@@ -131,6 +132,36 @@ class App extends React.Component {
                         break;
             case "Inbox": notes = this.state.notes;
                         break;
+            case "Today": var today = new Date();
+                          today.setHours(0,0,0,0);
+                          today = Date.parse(today);
+                          notes = this.state.notes.filter((note) => {
+                            var date = new Date(note.date);
+                            date = Date.parse(date);
+                            if(date === today){
+                                
+                                return true;
+                            }
+                             return false;
+                        }); 
+                        break;  
+            case "Week": var today = new Date();
+                         var dayOfWeek = today.getDay();
+                         if(dayOfWeek == 0){
+                            dayOfWeek = 7;
+                         }
+                         var weekStart = new Date(today);
+                         weekStart.setDate(today.getDate() - dayOfWeek+1);
+                         var weekEnd = new Date(today);
+                         weekEnd.setDate(today.getDate() + 7 - dayOfWeek);
+                         notes = this.state.notes.filter((note) => {
+                            var date = new Date(note.date);
+                            if(date.getDate()>=weekStart.getDate() && date.getDate()<=weekEnd.getDate()  ){
+                                return true;
+                            }
+                             return false;
+                        }); 
+                         break;
             default: notes = this.state.notes.filter((note) => {
                         if(note.listId === listId){
                             return true;
@@ -149,6 +180,10 @@ class App extends React.Component {
     handleDeleteList(listData){
         ListsActions.deleteList(listData);
         NotesActions.deleteNotes(listData);
+    }
+
+    handleEditList(listData){
+        ListsActions.editList(listData);
     }
 
 
@@ -179,12 +214,13 @@ class App extends React.Component {
                         active={this.state.selectList}
                         deleteList={this.handleDeleteList}
                         editList={this.handleEditList}
+                        handleEditList = {this.handleEditList}
                         addList={this.handleAddList}/>
                 <div className="Tasks">
                     <div className="header">
                         <h2>{title}</h2>
                         <button className="add-task" onClick={this.handleShowBoard.bind(this,"add")}>
-                            + Add task
+                            <i className="fa fa-plus-square" aria-hidden="true"></i> Add task
                         </button>
                     </div>
                     <Board  notes={notes}

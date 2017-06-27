@@ -22,7 +22,8 @@ module.exports = {
             tasks: data.tasks,
             status: data.status,
             starred: data.starred,
-            listId: data.listId
+            listId: data.listId,
+            date: data.date
         });
         
         return con.collection('notes').insert(note);
@@ -87,7 +88,15 @@ module.exports = {
             note.status = data.status;
             note.starred = data.starred;
             note.listId = data.listId;
+            note.date = data.date;
             return note.save();
+        });
+    },
+
+    editList: function(id, title){
+        return List.model.findById(id, function (err, list) {
+            list.title = title;
+            return list.save();
         });
     },
 
